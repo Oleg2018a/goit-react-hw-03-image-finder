@@ -9,22 +9,25 @@ import { imagesItems } from "api";
 export class App extends Component {
   state = {
     items: [],
-    galerryValue: ''
+    galerryValue: '',
+    page:'',
   }
-  componentDidMount() {
-    
-  }
- async componentDidUpdate() {
-    console.log('update')
+ 
+  async componentDidUpdate() {
+   
    try {
      
      const itemsImg = await imagesItems()
-     this.setState({items: itemsImg})
-     console.log(this.state.items); 
-     console.log(itemsImg)
+   
+       console.log(this.state.items); 
+    
+    //  this.setState(prev => ({
+    //    images: [...prev.items, ...itemsImg.hits],
+    //  }));
+     this.setState({ items: [...itemsImg.hits] });
    }
    catch {
-     console.error('eror')
+     console.error('cath eror')
      
    }
   }
@@ -35,7 +38,7 @@ export class App extends Component {
     console.log(data)
   }
   render() {
-      
+     
     return (
       <>
         <Searchbar onSubmitForm={this.hendleSubmit} />
