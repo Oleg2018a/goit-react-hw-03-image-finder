@@ -5,24 +5,31 @@ import {
   SearchFormInput,
   SearchbarStyled,
 } from './Searchbar.styled';
+import { object, string } from 'yup';
+
+import { AiOutlineSearch } from 'react-icons/ai';
+const schema = object().shape({
+  valueInput: string().trim().required('This field is required'),
+});
 
 const initialValues = {
   valueInput: '',
 };
+
 const Searchbar = ({ onSubmitForm }) => {
   return (
     <SearchbarStyled>
       <Formik
         initialValues={initialValues}
         onSubmit={(value, { resetForm }) => {
-
-          onSubmitForm(value);
+          onSubmitForm(value.valueInput);
           resetForm();
         }}
+        validationSchema={schema}
       >
         <SearchForm>
           <SearchFormButton type="submit">
-            <span>Search</span>
+            <AiOutlineSearch />
           </SearchFormButton>
           <SearchFormInput
             type="text"
